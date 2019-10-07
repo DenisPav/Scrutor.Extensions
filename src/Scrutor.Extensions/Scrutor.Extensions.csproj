@@ -1,7 +1,17 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <PackageId>Scrutor.Extensions</PackageId>
+    <VersionPrefix>1.0.0</VersionPrefix>
+    <Authors>Denis Pavlovic</Authors>
+    <Description>Wrapper around Scrutor which provides attributes for usage</Description>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageTags>Dependency Injection Extensions</PackageTags>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Scrutor" Version="3.1.0" />
+  </ItemGroup>
 
 </Project>
