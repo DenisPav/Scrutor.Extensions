@@ -1,7 +1,4 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Scrutor.Extensions.Attributes;
-using System;
-using System.Reflection;
 
 namespace Scrutor.Extensions
 {
@@ -13,29 +10,19 @@ namespace Scrutor.Extensions
                 scan =>
                 {
                     scan.FromApplicationDependencies()
-                        .AddClasses(classes => classes.Where(CreateFilter(ServiceLifetime.Scoped)))
+                        .AddClasses(classes => classes.Filter(ServiceLifetime.Scoped))
                         .AsImplementedInterfaces()
                         .WithScopedLifetime()
 
-                        .AddClasses(classes => classes.Where(CreateFilter(ServiceLifetime.Transient)))
+                        .AddClasses(classes => classes.Filter(ServiceLifetime.Transient))
                         .AsImplementedInterfaces()
                         .WithTransientLifetime()
 
-                        .AddClasses(classes => classes.Where(CreateFilter(ServiceLifetime.Singleton)))
+                        .AddClasses(classes => classes.Filter(ServiceLifetime.Singleton))
                         .AsImplementedInterfaces()
                         .WithSingletonLifetime();
                 }
             );
-        }
-
-        internal static Func<Type, bool> CreateFilter(ServiceLifetime lifetime)
-        {
-            return type =>
-            {
-                var attributeType = type.GetCustomAttribute<ExportAttribute>()?.Type;
-
-                return attributeType.HasValue ? attributeType == lifetime : false;
-            };
         }
     }
 }
