@@ -7,6 +7,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{F4D40FFA-1A5
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scrutor.Extensions", "src\Scrutor.Extensions\Scrutor.Extensions.csproj", "{61835EB7-4D7D-41E6-B3A1-A1D5997231A2}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{ACCC8F27-6B24-432D-8D89-D58D681E6903}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scrutor.Extensions.Tests", "test\Scrutor.Extensions.Tests\Scrutor.Extensions.Tests.csproj", "{B4CDF778-C84E-41A1-BEED-1D06C2E4BA20}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,8 +36,21 @@ Global
 		{61835EB7-4D7D-41E6-B3A1-A1D5997231A2}.Release|x64.Build.0 = Release|Any CPU
 		{61835EB7-4D7D-41E6-B3A1-A1D5997231A2}.Release|x86.ActiveCfg = Release|Any CPU
 		{61835EB7-4D7D-41E6-B3A1-A1D5997231A2}.Release|x86.Build.0 = Release|Any CPU
+		{B4CDF778-C84E-41A1-BEED-1D06C2E4BA20}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4CDF778-C84E-41A1-BEED-1D06C2E4BA20}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4CDF778-C84E-41A1-BEED-1D06C2E4BA20}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{B4CDF778-C84E-41A1-BEED-1D06C2E4BA20}.Debug|x64.Build.0 = Debug|Any CPU
+		{B4CDF778-C84E-41A1-BEED-1D06C2E4BA20}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{B4CDF778-C84E-41A1-BEED-1D06C2E4BA20}.Debug|x86.Build.0 = Debug|Any CPU
+		{B4CDF778-C84E-41A1-BEED-1D06C2E4BA20}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4CDF778-C84E-41A1-BEED-1D06C2E4BA20}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B4CDF778-C84E-41A1-BEED-1D06C2E4BA20}.Release|x64.ActiveCfg = Release|Any CPU
+		{B4CDF778-C84E-41A1-BEED-1D06C2E4BA20}.Release|x64.Build.0 = Release|Any CPU
+		{B4CDF778-C84E-41A1-BEED-1D06C2E4BA20}.Release|x86.ActiveCfg = Release|Any CPU
+		{B4CDF778-C84E-41A1-BEED-1D06C2E4BA20}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{61835EB7-4D7D-41E6-B3A1-A1D5997231A2} = {F4D40FFA-1A51-465B-B764-36E995A1BC4B}
+		{B4CDF778-C84E-41A1-BEED-1D06C2E4BA20} = {ACCC8F27-6B24-432D-8D89-D58D681E6903}
 	EndGlobalSection
 EndGlobal
