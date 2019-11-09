@@ -1,5 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 using Scrutor.Extensions.Attributes;
+using System;
 using System.Linq;
 using Xunit;
 
@@ -31,21 +32,62 @@ namespace Scrutor.Extensions.Tests
 
     }
 
-    public class ServiceCollectionTests
+    public class ServiceCollectionTests : ServiceCollectionTestsBase
     {
-        [Fact]
-        public void Should_Have_All_Registered_Dependencies()
+        [Theory]
+        [InlineData(typeof(IDependency1), typeof(Dependency1), ServiceLifetime.Scoped)]
+        [InlineData(typeof(IDependency2), typeof(Dependency2), ServiceLifetime.Transient)]
+        [InlineData(typeof(IDependency3), typeof(Dependency3), ServiceLifetime.Singleton)]
+        public void Should_Have_All_Registered_Dependencies(Type serviceType, Type implementationType, ServiceLifetime lifetime)
         {
-            var services = new ServiceCollection()
-                .RegisterDependencies();
+            var services = CreateServiceCollection();
+            var serviceDescriptor = services.FirstOrDefault(descriptor => descriptor.ServiceType == serviceType && descriptor.ImplementationType == implementationType && descriptor.Lifetime == lifetime);
 
-            var scopedService = services.FirstOrDefault(descriptor => descriptor.ServiceType == typeof(IDependency1) && descriptor.ImplementationType == typeof(Dependency1) && descriptor.Lifetime == ServiceLifetime.Scoped);
-            var transientService = services.FirstOrDefault(descriptor => descriptor.ServiceType == typeof(IDependency2) && descriptor.ImplementationType == typeof(Dependency2) && descriptor.Lifetime == ServiceLifetime.Transient);
-            var singletonService = services.FirstOrDefault(descriptor => descriptor.ServiceType == typeof(IDependency3) && descriptor.ImplementationType == typeof(Dependency3) && descriptor.Lifetime == ServiceLifetime.Singleton);
+            Assert.NotNull(serviceDescriptor);
+        }
 
-            Assert.NotNull(scopedService);
-            Assert.NotNull(transientService);
-            Assert.NotNull(singletonService);
+        [Theory]
+        [InlineData(typeof(IDependency1))]
+        public void Should_Throw_When_No_Active_Scope(Type dependencyType)
+        {
+            var serviceProvider = CreateServiceProvider();
+
+            Assert.Throws<InvalidOperationException>(() => serviceProvider.GetRequiredService(dependencyType));
+        }
+
+        [Theory]
+        [InlineData(typeof(IDependency1), typeof(Dependency1))]
+        public void Should_Resolve_When_Active_Scope_Exists(Type implementationType, Type serviceType)
+        {
+            var serviceProvider = CreateServiceProvider();
+            var scopeFactory = serviceProvider.GetRequiredService<IServiceScopeFactory>();
+
+            using var scope = scopeFactory.CreateScope();
+            var service = scope.ServiceProvider.GetRequiredService(implementationType);
+
+            Assert.NotNull(service);
+            Assert.IsType(serviceType, service);
+        }
+
+        [Theory]
+        [InlineData(typeof(IDependency2), typeof(Dependency2))]
+        [InlineData(typeof(IDependency3), typeof(Dependency3))]
+        public void Should_Resolve_Singleton_And_Transient_Services(Type implementationType, Type serviceType)
+        {
+            var serviceProvider = CreateServiceProvider();
+            var service = serviceProvider.GetRequiredService(implementationType);
+
+            Assert.NotNull(service);
+            Assert.IsType(serviceType, service);
+        }
+
+        [Theory]
+        [InlineData(typeof(NotRegisteredDependency))]
+        public void Should_Not_Resolve_Unmarked_Service(Type serviceType)
+        {
+            var serviceProvider = CreateServiceProvider();
+
+            Assert.Throws<InvalidOperationException>(() => serviceProvider.GetRequiredService(serviceType));
         }
     }
 }
