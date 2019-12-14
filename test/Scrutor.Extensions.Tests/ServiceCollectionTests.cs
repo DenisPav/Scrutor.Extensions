@@ -38,6 +38,9 @@ namespace Scrutor.Extensions.Tests
         [InlineData(typeof(IDependency1), typeof(Dependency1), ServiceLifetime.Scoped)]
         [InlineData(typeof(IDependency2), typeof(Dependency2), ServiceLifetime.Transient)]
         [InlineData(typeof(IDependency3), typeof(Dependency3), ServiceLifetime.Singleton)]
+        [InlineData(typeof(Dependency1), typeof(Dependency1), ServiceLifetime.Scoped)]
+        [InlineData(typeof(Dependency2), typeof(Dependency2), ServiceLifetime.Transient)]
+        [InlineData(typeof(Dependency3), typeof(Dependency3), ServiceLifetime.Singleton)]
         public void Should_Have_All_Registered_Dependencies(Type serviceType, Type implementationType, ServiceLifetime lifetime)
         {
             var services = CreateServiceCollection();
@@ -48,6 +51,8 @@ namespace Scrutor.Extensions.Tests
 
         [Theory]
         [InlineData(typeof(IDependency1))]
+        [InlineData(typeof(Dependency1))]
+
         public void Should_Throw_When_No_Active_Scope(Type dependencyType)
         {
             var serviceProvider = CreateServiceProvider();
@@ -57,6 +62,8 @@ namespace Scrutor.Extensions.Tests
 
         [Theory]
         [InlineData(typeof(IDependency1), typeof(Dependency1))]
+        [InlineData(typeof(Dependency1), typeof(Dependency1))]
+
         public void Should_Resolve_When_Active_Scope_Exists(Type implementationType, Type serviceType)
         {
             var serviceProvider = CreateServiceProvider();
@@ -72,6 +79,8 @@ namespace Scrutor.Extensions.Tests
         [Theory]
         [InlineData(typeof(IDependency2), typeof(Dependency2))]
         [InlineData(typeof(IDependency3), typeof(Dependency3))]
+        [InlineData(typeof(Dependency2), typeof(Dependency2))]
+        [InlineData(typeof(Dependency3), typeof(Dependency3))]
         public void Should_Resolve_Singleton_And_Transient_Services(Type implementationType, Type serviceType)
         {
             var serviceProvider = CreateServiceProvider();

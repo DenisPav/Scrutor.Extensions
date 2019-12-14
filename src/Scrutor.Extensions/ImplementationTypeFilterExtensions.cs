@@ -11,6 +11,7 @@ namespace Scrutor.Extensions
         {
             return typeSelector
                 .AddClasses(classes => classes.Filter(lifetime))
+                .AsSelf()
                 .AsImplementedInterfaces()
                 .WithLifetime(lifetime);
         }
