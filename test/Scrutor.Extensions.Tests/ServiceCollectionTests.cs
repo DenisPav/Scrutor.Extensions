@@ -27,6 +27,13 @@ namespace Scrutor.Extensions.Tests
     public class Dependency3 : IDependency3
     { }
 
+    public interface IDependency4
+    { }
+
+    [Export]
+    public class Dependency4 : IDependency4 
+    { }
+
     public class NotRegisteredDependency
     {
 
@@ -38,9 +45,11 @@ namespace Scrutor.Extensions.Tests
         [InlineData(typeof(IDependency1), typeof(Dependency1), ServiceLifetime.Scoped)]
         [InlineData(typeof(IDependency2), typeof(Dependency2), ServiceLifetime.Transient)]
         [InlineData(typeof(IDependency3), typeof(Dependency3), ServiceLifetime.Singleton)]
+        [InlineData(typeof(IDependency4), typeof(Dependency4), ServiceLifetime.Scoped)]
         [InlineData(typeof(Dependency1), typeof(Dependency1), ServiceLifetime.Scoped)]
         [InlineData(typeof(Dependency2), typeof(Dependency2), ServiceLifetime.Transient)]
         [InlineData(typeof(Dependency3), typeof(Dependency3), ServiceLifetime.Singleton)]
+        [InlineData(typeof(Dependency4), typeof(Dependency4), ServiceLifetime.Scoped)]
         public void Should_Have_All_Registered_Dependencies(Type serviceType, Type implementationType, ServiceLifetime lifetime)
         {
             var services = CreateServiceCollection();
@@ -62,7 +71,9 @@ namespace Scrutor.Extensions.Tests
 
         [Theory]
         [InlineData(typeof(IDependency1), typeof(Dependency1))]
+        [InlineData(typeof(IDependency4), typeof(Dependency4))]
         [InlineData(typeof(Dependency1), typeof(Dependency1))]
+        [InlineData(typeof(Dependency4), typeof(Dependency4))]
 
         public void Should_Resolve_When_Active_Scope_Exists(Type implementationType, Type serviceType)
         {
