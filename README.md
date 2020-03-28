@@ -2,8 +2,6 @@
 ![alt text](https://ci.appveyor.com/api/projects/status/kp23f8fg0eqbxiyf?svg=true "Build status")
 ![alt text](https://img.shields.io/myget/scrutor-extensions/v/Scrutor.Extensions?color=%23 "MyGet status")
 
-https://img.shields.io/myget/scrutor-extensions/v/Scrutor.Extensions?color=%23
-
 This repo exposes Scrutors scanning logic with "simpler" Attributes that can be used to anotate classes which need to get registered to DI container (ServiceCollection).
 
 ## Usage
