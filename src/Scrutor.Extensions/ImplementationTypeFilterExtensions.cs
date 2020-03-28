@@ -7,7 +7,9 @@ namespace Scrutor.Extensions
 {
     internal static class ImplementationTypeFilterExtensions
     {
-        internal static IImplementationTypeSelector RegisterForLifetime(this IImplementationTypeSelector typeSelector, ServiceLifetime lifetime)
+        internal static IImplementationTypeSelector RegisterForLifetime(
+            this IImplementationTypeSelector typeSelector,
+            ServiceLifetime lifetime)
         {
             return typeSelector
                 .AddClasses(classes => classes.Filter(lifetime))
@@ -16,10 +18,14 @@ namespace Scrutor.Extensions
                 .WithLifetime(lifetime);
         }
 
-        internal static IImplementationTypeFilter Filter(this IImplementationTypeFilter classes, ServiceLifetime lifetime)
+        internal static IImplementationTypeFilter Filter(
+            this IImplementationTypeFilter classes,
+            ServiceLifetime lifetime)
             => classes.Where(type => ValidateType(type, lifetime));
 
-        internal static bool ValidateType(Type type, ServiceLifetime lifetime)
+        internal static bool ValidateType(
+            Type type,
+            ServiceLifetime lifetime)
         {
             var attributeType = type.GetCustomAttribute<ExportAttribute>()?.Type;
 

@@ -109,5 +109,13 @@ namespace Scrutor.Extensions.Tests
 
             Assert.Throws<InvalidOperationException>(() => serviceProvider.GetRequiredService(serviceType));
         }
+
+        [Fact]
+        public void Should_Not_Have_Any_Registration_If_Filtered_By_Assembly()
+        {
+            var services = CreateServiceCollection(assembly => !assembly.FullName.Contains(nameof(Scrutor.Extensions.Tests)));
+
+            Assert.True(services.Count == 0);
+        }
     }
 }
